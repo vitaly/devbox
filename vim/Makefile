@@ -12,5 +12,3 @@ update: ~/.vim
 	cd ~/.vim/ && git pull origin local
 	cd ~/.vim/ && make install
 .PHONY: update
-
-upgrade: ~/.vim

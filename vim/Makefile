@@ -1,4 +1,4 @@
-default: update
+default: install
 .PHONY: default
 
 ~/.vim:

@@ -15,3 +15,7 @@ zsh:
 git:
 	${MAKE} -C git
 .PHONY: git
+
+docker:
+	${MAKE} -C docker
+.PHONY: docker

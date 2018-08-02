@@ -8,6 +8,7 @@ default: install
 	ln -sfn  $< $@
 
 install: ~/.zshrc
+	chsh -s `which zsh`
 .PHONY: install
 
 update: ~/.zshrc

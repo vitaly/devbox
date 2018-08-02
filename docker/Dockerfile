@@ -72,11 +72,23 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends
 
 FROM BASE
 
-COPY . build
+RUN git clone --depth 1 https://github.com/vitaly/devbox devbox
 
-RUN cd build/zsh && make install
-RUN cd build/vim && make install
+RUN cd devbox/zsh && make install
+RUN cd devbox/vim && make install
 
+RUN git clone --depth 1 --branch local https://github.com/vitaly/dotfiles.git /.dotfiles
+
+# RUN cd .dotfiles/tmux && tmux new-session -s 'install' -c ~/.dotfiles/tmux -d make && tmux wait install
+
+
+
+
+
+########################################################################################################################
+
+COPY vim devbox/vim
+RUN cd devbox/vim && make update
 
 # ARG DOTVIM_VERSION
 # ARG DOTZSH_VERSION

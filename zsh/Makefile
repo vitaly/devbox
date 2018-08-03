@@ -13,7 +13,7 @@ ohzsh: ${OHZSH}
 
 PREZTO := ~/.zprezto
 ${PREZTO}:
-	git clone --recursive https://github.com/sorin-ionescu/prezto $@
+	git clone --recursive --depth=1 --branch local https://github.com/vitaly/prezto $@
 ZFILES := zlogin zlogout zpreztorc zprofile zshenv zshrc
 prezto: ${PREZTO}
 	ln -sfn ${PREZTO} ~/.zsh

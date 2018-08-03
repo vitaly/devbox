@@ -1,14 +1,29 @@
 default: install
 .PHONY: default
 
-~/.zsh/zshrc:
-	git clone --depth=1 --branch local https://github.com/vitaly/oh-my-zsh.git ~/.zsh
 
-~/.zshrc: ~/.zsh/zshrc
-	ln -sfn  $< $@
+OHZSH := ~/.oh-my-zsh
+${OHZSH}:
+	git clone --depth=1 --branch local https://github.com/vitaly/oh-my-zsh $@
 
-install: ~/.zshrc
-	chsh -s `which zsh`
+ohzsh: ${OHZSH}
+	ln -sfn ${OHZSH} ~/.zsh
+	# XXX remove ZFILES links
+	ln -sfn .zsh/zshrc ~/.zshrc
+
+PREZTO := ~/.zprezto
+${PREZTO}:
+	git clone --recursive https://github.com/sorin-ionescu/prezto $@
+ZFILES := zlogin zlogout zpreztorc zprofile zshenv zshrc
+prezto: ${PREZTO}
+	ln -sfn ${PREZTO} ~/.zsh
+	for f in ${ZFILES}; do ln -sfnv .zsh/runcoms/$$f ~/.$$f; done
+
+chsh:
+	# XXX echo `which zsh` | sudo tee -a /etc/shells
+	# chsh -s `which zsh`
+
+install: prezto chsh
 .PHONY: install
 
 update: ~/.zshrc
